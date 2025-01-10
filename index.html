@@ -185,12 +185,43 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
     <script>
+        // 版本信息
+        window.VERSION = {
+            number: "1.0.5",
+            date: "2025-01-10",
+            features: ["修復頁面顯示", "修復滾動問題", "添加版本追蹤"]
+        };
+
+        // 在控制台顯示版本信息
+        console.log(
+            "%c未來方舟探險隊網站 %c v" + VERSION.number,
+            "color: #FFD700; font-size: 14px; font-weight: bold;",
+            "color: #4f46e5; font-size: 12px;"
+        );
+        console.log(
+            "%c更新日期: %c" + VERSION.date,
+            "color: #888;",
+            "color: #4f46e5;"
+        );
+        console.log(
+            "%c最新功能: %c" + VERSION.features.join(", "),
+            "color: #888;",
+            "color: #4f46e5;"
+        );
+
+        // fullPage 初始化
         new fullpage('#fullpage', {
+            licenseKey: 'gplv3-license',
             autoScrolling: true,
-            scrollHorizontally: true,
             navigation: true,
             navigationPosition: 'right',
             showActiveTooltip: true,
+            controlArrows: true,
+            scrollingSpeed: 700,
+            fitToSection: true,
+            fixedElements: '.navbar',
+            css3: true,
+            verticalCentered: true,
             anchors: ['home', 'basic', 'advanced', 'goals', 'values', 'cta']
         });
     </script>
