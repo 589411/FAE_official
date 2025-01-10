@@ -27,6 +27,8 @@ body {
 
 .navbar-brand img {
     transition: transform 0.3s ease;
+    max-height: 50px;  /* 原本可能太大，調整為 50px */
+    width: auto;
 }
 
 .navbar-brand img:hover {

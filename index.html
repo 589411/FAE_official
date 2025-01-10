@@ -195,10 +195,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
     <script>
         // 版本信息
-        const VERSION = {
-            number: "1.0.5",
+        window.VERSION = {
+            number: "1.0.6",
             date: "2025-01-10",
-            features: ["首頁視頻背景", "修復頁面顯示", "修復錨點問題"]
+            features: ["修復手機版滾動", "調整 logo 大小", "修復頁面顯示"]
         };
 
         // 在控制台顯示版本信息
@@ -231,11 +231,22 @@
             fixedElements: '.navbar',
             css3: true,
             verticalCentered: true,
-            scrollOverflow: true,
-            normalScrollElements: null,
-            keyboardScrolling: true,
-            animateAnchor: true,
-            recordHistory: true
+            anchors: ['home', 'basic', 'advanced', 'goals', 'values', 'cta'],
+            responsiveWidth: 768,  // 在手機版（小於 768px）時禁用 fullPage
+            responsiveHeight: 500,  // 在低高度時禁用 fullPage
+            afterResponsive: function(isResponsive) {
+                if (isResponsive) {
+                    // 在手機版時啟用普通滾動
+                    fullpage_api.setAutoScrolling(false);
+                    fullpage_api.setFitToSection(false);
+                }
+            },
+            afterRender: function() {
+                // 修復 iOS Safari 滾動問題
+                if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    $('.section').css('overflow-y', 'auto');
+                }
+            }
         });
     </script>
 </body>
