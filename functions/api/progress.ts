@@ -2,7 +2,7 @@
 // 路徑: /api/progress
 
 interface Env {
-  PROGRESS_KV: KVNamespace; // Cloudflare KV（需要在 Dashboard 綁定）
+  PROGRESS_KV?: any; // Cloudflare KV（需要在 Dashboard 綁定）
 }
 
 interface UserProgress {
