@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import StarField from '@/components/3d/StarField';
 import SpaceshipHUD from '@/components/ui/SpaceshipHUD';
 import MissionLog from '@/components/ui/MissionLog';
+import AIChat from '@/components/ui/AIChat';
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
@@ -60,9 +61,12 @@ export default function Home() {
       {/* 航行日誌通知 */}
       <MissionLog />
       
+      {/* AI 聊天助手 */}
+      <AIChat />
+      
       {/* 版本資訊 */}
-      <div className="absolute bottom-4 right-4 text-xs text-star-white/50 z-20">
-        v2.0.0 | ARK-01 Mission
+      <div className="absolute bottom-4 left-4 text-xs text-star-white/50 z-20">
+        v2.0.0 | ARK-01 Mission | AI Enabled
       </div>
     </main>
   );
