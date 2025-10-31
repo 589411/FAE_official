@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 
 type DifficultyLevel = 'intermediate' | 'advanced' | 'expert';
 
@@ -179,8 +181,9 @@ const difficultyLabels: Record<DifficultyLevel, string> = {
 };
 
 export default function AdvancedMissionsPage() {
+  const { t } = useLanguage();
   const [showContent, setShowContent] = useState(false);
-  const [selectedMission, setSelectedMission] = useState<number | null>(null);
+  const [selectedPlanet, setSelectedPlanet] = useState<number | null>(null);
   const [hoveredPlanet, setHoveredPlanet] = useState<number | null>(null);
 
   useEffect(() => {
@@ -207,6 +210,9 @@ export default function AdvancedMissionsPage() {
       {/* 背景漸層覆蓋 */}
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-space-dark/80 via-space-purple/40 to-space-dark/90" />
 
+      {/* 語言切換 */}
+      <LanguageSwitcher />
+
       {/* 導航欄 */}
       <nav className="relative z-20 flex items-center justify-between px-8 py-6 bg-space-dark/50 backdrop-blur-md border-b border-energy-purple/20">
         <Link href="/" className="text-2xl font-bold text-energy-purple hover:text-energy-cyan transition-colors">
@@ -214,10 +220,10 @@ export default function AdvancedMissionsPage() {
         </Link>
         <div className="flex gap-6">
           <Link href="/missions/basic" className="text-star-white/70 hover:text-energy-purple transition-colors">
-            基礎任務
+            {t('nav.basic')}
           </Link>
           <Link href="/missions/advanced" className="text-star-white hover:text-energy-purple transition-colors">
-            進階任務
+            {t('nav.advanced')}
           </Link>
         </div>
       </nav>
@@ -235,10 +241,10 @@ export default function AdvancedMissionsPage() {
             <span className="text-energy-purple font-mono text-sm">🌙 LUNAR BASE → 🪐 SOLAR SYSTEM</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-glow-purple">
-            進階任務與專業挑戰
+            {t('advanced.title')}
           </h1>
           <p className="text-xl text-energy-purple mb-4">
-            征服太陽系，成為 AI 領域的專家
+            {t('advanced.subtitle')}
           </p>
           
           {/* 指揮官進階訊息 */}
@@ -256,13 +262,13 @@ export default function AdvancedMissionsPage() {
               </div>
               <div className="flex-1 text-left">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="font-bold text-energy-purple">Joseph 指揮官</span>
+                  <span className="font-bold text-energy-purple">{t('crew.joseph.title')} {t('crew.joseph.role')}</span>
                   <span className="px-2 py-0.5 bg-energy-purple/20 text-energy-purple text-xs rounded-full">
-                    任務指揮
+                    {t('crew.joseph.role')}
                   </span>
                 </div>
                 <p className="text-star-white/90 text-sm leading-relaxed">
-                  恭喜完成月球基地的訓練！現在是時候挑戰更遠的星球了。跟著我，我們將征服整個太陽系，成為真正的 AI 專家！
+                  {t('advanced.welcome')}
                 </p>
               </div>
             </div>
@@ -270,7 +276,7 @@ export default function AdvancedMissionsPage() {
           <div className="flex items-center justify-center gap-8 text-star-white/60 text-sm">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🪐</span>
-              <span>6 個星球</span>
+              <span>6 {t('advanced.planets')}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⏱️</span>
