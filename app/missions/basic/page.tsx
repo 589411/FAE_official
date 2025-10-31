@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 
 const basicMissions = [
   {
@@ -90,6 +92,7 @@ const difficultyConfig = {
 };
 
 export default function BasicMissionsPage() {
+  const { t } = useLanguage();
   const [showContent, setShowContent] = useState(false);
   const [selectedMission, setSelectedMission] = useState<number | null>(null);
   const [hoveredMission, setHoveredMission] = useState<number | null>(null);
@@ -115,6 +118,9 @@ export default function BasicMissionsPage() {
       {/* 背景漸層覆蓋 */}
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-space-dark/80 via-space-blue/40 to-space-dark/90" />
 
+      {/* 語言切換 */}
+      <LanguageSwitcher />
+
       {/* 導航欄 */}
       <nav className="relative z-20 flex items-center justify-between px-8 py-6 bg-space-dark/50 backdrop-blur-md border-b border-energy-cyan/20">
         <Link href="/" className="text-2xl font-bold text-energy-cyan hover:text-energy-purple transition-colors">
@@ -122,10 +128,10 @@ export default function BasicMissionsPage() {
         </Link>
         <div className="flex gap-6">
           <Link href="/missions/basic" className="text-star-white hover:text-energy-cyan transition-colors">
-            基礎任務
+            {t('nav.basic')}
           </Link>
           <Link href="/missions/advanced" className="text-star-white/70 hover:text-energy-cyan transition-colors">
-            進階任務
+            {t('nav.advanced')}
           </Link>
         </div>
       </nav>
@@ -143,10 +149,10 @@ export default function BasicMissionsPage() {
             <span className="text-energy-cyan font-mono text-sm">🌍 EARTH ORBIT → 🌙 LUNAR BASE</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-glow">
-            基礎任務與挑戰
+            {t('basic.title')}
           </h1>
           <p className="text-xl text-energy-cyan mb-4">
-            開啟你的 AI 探險之旅，掌握基礎技能
+            {t('basic.subtitle')}
           </p>
           
           {/* 指揮官歡迎訊息 */}
@@ -164,13 +170,13 @@ export default function BasicMissionsPage() {
               </div>
               <div className="flex-1 text-left">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="font-bold text-energy-cyan">Joseph 指揮官</span>
+                  <span className="font-bold text-energy-cyan">{t('crew.joseph.title')} {t('crew.joseph.role')}</span>
                   <span className="px-2 py-0.5 bg-energy-cyan/20 text-energy-cyan text-xs rounded-full">
-                    任務指揮
+                    {t('crew.joseph.role')}
                   </span>
                 </div>
                 <p className="text-star-white/90 text-sm leading-relaxed">
-                  歡迎加入未來方舟探險隊！我是你的任務指揮官 Joseph，將帶領你從月球基地開始，一步步掌握 AI 技術。準備好開始你的探險之旅了嗎？
+                  {t('basic.welcome')}
                 </p>
               </div>
             </div>
@@ -179,15 +185,15 @@ export default function BasicMissionsPage() {
           <div className="flex items-center justify-center gap-8 text-star-white/60 text-sm mt-8">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎯</span>
-              <span>4 個任務</span>
+              <span>4 {t('basic.missions')}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⏱️</span>
-              <span>14-18 小時</span>
+              <span>14-18 {t('basic.hours')}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⭐</span>
-              <span>700 點數</span>
+              <span>700 {t('basic.points')}</span>
             </div>
           </div>
         </motion.div>
