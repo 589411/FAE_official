@@ -5,6 +5,7 @@ import StarField from '@/components/3d/StarField';
 import SpaceshipHUD from '@/components/ui/SpaceshipHUD';
 import MissionLog from '@/components/ui/MissionLog';
 import AIChat from '@/components/ui/AIChat';
+import CrewInfo from '@/components/ui/CrewInfo';
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
@@ -57,6 +58,9 @@ export default function Home() {
         {/* 太空船 HUD */}
         <SpaceshipHUD />
       </div>
+
+      {/* 探險隊成員資訊 */}
+      <CrewInfo />
 
       {/* 航行日誌通知 */}
       <MissionLog />

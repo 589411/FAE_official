@@ -10,10 +10,14 @@ const config: Config = {
     extend: {
       colors: {
         'space-black': '#0a0e27',
+        'space-dark': '#0a0e27',
         'deep-space': '#1a1f3a',
         'nebula-blue': '#2d4a7c',
+        'space-blue': '#2d4a7c',
+        'space-purple': '#4c1d95',
         'star-white': '#e8f4f8',
         'energy-cyan': '#00d9ff',
+        'energy-purple': '#a855f7',
         'warning-amber': '#ffb800',
         'danger-red': '#ff3366',
         'success-green': '#00ff88',

@@ -104,6 +104,26 @@ body {
     0 0 30px rgba(0, 217, 255, 0.2);
 }
 
+.text-glow-purple {
+  text-shadow: 
+    0 0 10px rgba(168, 85, 247, 0.5),
+    0 0 20px rgba(168, 85, 247, 0.3),
+    0 0 30px rgba(168, 85, 247, 0.2);
+}
+
+/* 陰影發光效果 */
+.shadow-glow {
+  box-shadow: 
+    0 0 20px rgba(0, 217, 255, 0.4),
+    0 0 40px rgba(0, 217, 255, 0.2);
+}
+
+.shadow-glow-purple {
+  box-shadow: 
+    0 0 20px rgba(168, 85, 247, 0.4),
+    0 0 40px rgba(168, 85, 247, 0.2);
+}
+
 /* 按鈕樣式 */
 .btn-primary {
   @apply px-6 py-3 bg-energy-cyan text-space-black font-bold rounded-lg;

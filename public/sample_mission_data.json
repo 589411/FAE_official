@@ -1,0 +1,312 @@
+{
+  "missions": [
+    {
+      "id": "moon_landing_01",
+      "title": "月球著陸點選擇",
+      "category": "data_analysis",
+      "difficulty": 2,
+      "estimatedTime": "10-15 分鐘",
+      "points": 150,
+      "story": {
+        "intro": "曙光號即將登陸月球！我們需要分析這些地形數據，選擇最安全的著陸點。你能用 AI 工具幫我們分析嗎？",
+        "fabotAvatar": "/images/faebot_happy.png",
+        "fabotVoice": "excited"
+      },
+      "data": {
+        "title": "月球地形數據包",
+        "type": "structured",
+        "copyable": true,
+        "content": "📋 月球地形數據包\n\n座標 A (23.5°N, 15.2°E)\n- 坡度: 12°\n- 岩石密度: 中等\n- 陽光照射: 每日 8 小時\n- 附近隕石坑: 2 個 (距離 500m)\n- 地質穩定性: 良好\n\n座標 B (25.1°N, 18.7°E)\n- 坡度: 5°\n- 岩石密度: 低\n- 陽光照射: 每日 6 小時\n- 附近隕石坑: 5 個 (距離 200m)\n- 地質穩定性: 普通\n\n座標 C (24.3°N, 16.8°E)\n- 坡度: 8°\n- 岩石密度: 低\n- 陽光照射: 每日 10 小時\n- 附近隕石坑: 1 個 (距離 1000m)\n- 地質穩定性: 優秀\n\n任務：請分析這三個座標，推薦最適合的著陸點，並說明理由。",
+        "hints": [
+          {
+            "level": 1,
+            "text": "💡 提示：考慮坡度、陽光和安全性",
+            "fabotSays": "想想看，哪些因素對著陸最重要？"
+          },
+          {
+            "level": 2,
+            "text": "💡 提示：試著問 AI「哪個座標最適合太空船著陸？為什麼？」",
+            "fabotSays": "把數據複製給 ChatGPT，讓它幫你分析！"
+          },
+          {
+            "level": 3,
+            "text": "💡 提示：座標 C 有最好的陽光和穩定性",
+            "fabotSays": "再仔細看看座標 C 的數據..."
+          }
+        ]
+      },
+      "questions": [
+        {
+          "type": "multiple_choice",
+          "question": "根據數據分析，你推薦哪個座標作為著陸點？",
+          "options": [
+            {
+              "id": "A",
+              "text": "座標 A",
+              "feedback": "座標 A 的坡度較大（12°），可能增加著陸風險。雖然地質穩定性良好，但不是最佳選擇。"
+            },
+            {
+              "id": "B",
+              "text": "座標 B",
+              "feedback": "座標 B 雖然坡度最小，但附近有 5 個隕石坑且距離很近（200m），地質穩定性也只是普通，存在較大風險。"
+            },
+            {
+              "id": "C",
+              "text": "座標 C",
+              "correct": true,
+              "feedback": "太棒了！座標 C 是最佳選擇：坡度適中（8°）、陽光充足（10小時/天）、地質穩定性優秀、隕石坑距離遠（1000m）。這是最安全的著陸點！"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "question": "請簡述你選擇這個座標的主要理由（至少 2 點）",
+          "minLength": 20,
+          "keywords": ["穩定", "陽光", "坡度", "安全", "隕石坑"],
+          "feedback": "很好的分析！你展現了數據分析和邏輯推理的能力。"
+        }
+      ],
+      "rewards": {
+        "points": 150,
+        "badges": ["data_analyst_bronze"],
+        "unlocks": ["moon_landing_02"],
+        "fabotPraise": "太棒了！你的分析很專業！曙光號可以安全著陸了！🎉"
+      },
+      "aiToolSuggestions": [
+        {
+          "tool": "ChatGPT",
+          "prompt": "我有三個月球著陸點的數據，請幫我分析哪個最適合太空船著陸：\n\n[貼上數據]"
+        },
+        {
+          "tool": "Claude",
+          "prompt": "請以太空工程師的角度，分析這些月球地形數據，推薦最佳著陸點：\n\n[貼上數據]"
+        },
+        {
+          "tool": "NotebookLM",
+          "prompt": "上傳數據後問：「根據這些數據，哪個座標最適合作為月球著陸點？」"
+        }
+      ]
+    },
+    {
+      "id": "signal_decode_01",
+      "title": "神秘信號解碼",
+      "category": "pattern_recognition",
+      "difficulty": 3,
+      "estimatedTime": "15-20 分鐘",
+      "points": 200,
+      "story": {
+        "intro": "我們在月球表面偵測到不明信號！這些數據看起來很複雜，需要你的 AI 分析能力！",
+        "fabotAvatar": "/images/faebot_curious.png",
+        "fabotVoice": "mysterious"
+      },
+      "data": {
+        "title": "月球信號數據",
+        "type": "complex",
+        "copyable": true,
+        "content": "🛸 月球信號數據\n\n時間序列數據：\n00:00 - 頻率: 1420 MHz, 強度: 45 dB\n00:15 - 頻率: 1420 MHz, 強度: 52 dB\n00:30 - 頻率: 1420 MHz, 強度: 48 dB\n00:45 - 頻率: 1420 MHz, 強度: 55 dB\n01:00 - 頻率: 1420 MHz, 強度: 50 dB\n\n編碼數據：\n01001000 01000101 01001100 01001100 01001111\n00100000 01001101 01001111 01001111 01001110\n\n波形特徵：\n- 週期性: 15 分鐘\n- 調制方式: 脈衝調制\n- 信號來源: 月球背面\n- 持續時間: 3 小時\n\n任務：\n1. 這個信號的頻率有什麼特殊意義？\n2. 編碼數據代表什麼訊息？\n3. 信號的週期性說明了什麼？",
+        "hints": [
+          {
+            "level": 1,
+            "text": "💡 提示：1420 MHz 在天文學中很特殊",
+            "fabotSays": "這個頻率不是隨機的！試著問 AI 它的意義。"
+          },
+          {
+            "level": 2,
+            "text": "💡 提示：二進制可以轉換成 ASCII 碼",
+            "fabotSays": "那些 0 和 1 可能是一段訊息！讓 AI 幫你解碼。"
+          },
+          {
+            "level": 3,
+            "text": "💡 提示：週期性信號通常不是自然現象",
+            "fabotSays": "規律的信號往往意味著...人工來源？"
+          }
+        ]
+      },
+      "questions": [
+        {
+          "type": "multiple_choice",
+          "question": "1420 MHz 頻率在天文學中被稱為什麼？",
+          "options": [
+            {
+              "id": "A",
+              "text": "氫線頻率",
+              "correct": true,
+              "feedback": "正確！1420 MHz 是氫原子的特徵頻率，被稱為「氫線」，是 SETI（搜尋地外文明）計畫常用的頻率。"
+            },
+            {
+              "id": "B",
+              "text": "氧線頻率",
+              "feedback": "不對喔，這不是氧的特徵頻率。"
+            },
+            {
+              "id": "C",
+              "text": "無線電干擾頻率",
+              "feedback": "這是一個特殊的天文頻率，不是干擾。"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "question": "二進制編碼解碼後的訊息是什麼？",
+          "correctAnswer": "HELLO MOON",
+          "acceptableAnswers": ["hello moon", "Hello Moon", "HELLO MOON"],
+          "feedback": "太厲害了！你成功解碼了訊息：「HELLO MOON」！這可能是某個探測器發出的問候訊號。"
+        },
+        {
+          "type": "multiple_choice",
+          "question": "信號的週期性特徵說明了什麼？",
+          "options": [
+            {
+              "id": "A",
+              "text": "這是自然現象",
+              "feedback": "自然現象通常不會有如此規律的週期性。"
+            },
+            {
+              "id": "B",
+              "text": "這可能是人工信號",
+              "correct": true,
+              "feedback": "正確！規律的 15 分鐘週期性強烈暗示這是人工製造的信號，可能來自某個探測器或基地。"
+            },
+            {
+              "id": "C",
+              "text": "這是設備故障",
+              "feedback": "故障信號通常是不規則的，不會有這麼精確的週期。"
+            }
+          ]
+        }
+      ],
+      "rewards": {
+        "points": 200,
+        "badges": ["signal_decoder", "pattern_master"],
+        "unlocks": ["signal_decode_02", "moon_mystery_01"],
+        "fabotPraise": "驚人的分析！你不僅解碼了訊息，還理解了信號的深層含義！🎊"
+      },
+      "aiToolSuggestions": [
+        {
+          "tool": "ChatGPT",
+          "prompt": "請幫我分析這個月球信號數據：\n1. 1420 MHz 頻率有什麼意義？\n2. 請將這段二進制轉換成文字：[貼上二進制]\n3. 週期性信號說明了什麼？"
+        },
+        {
+          "tool": "Claude",
+          "prompt": "我偵測到一個神秘的月球信號，請幫我分析：\n[貼上完整數據]"
+        }
+      ]
+    },
+    {
+      "id": "resource_optimization_01",
+      "title": "月球基地能源管理",
+      "category": "optimization",
+      "difficulty": 3,
+      "estimatedTime": "20-25 分鐘",
+      "points": 250,
+      "story": {
+        "intro": "曉月城基地的能源系統需要優化！我們有很多設備，但能源有限，你能幫我們做出最佳決策嗎？",
+        "fabotAvatar": "/images/faebot_thinking.png",
+        "fabotVoice": "serious"
+      },
+      "data": {
+        "title": "月球基地能源管理數據",
+        "type": "optimization",
+        "copyable": true,
+        "content": "⚡ 月球基地能源管理數據\n\n可用能源: 1000 單位/天\n\n設備清單：\n\n1. 生命維持系統\n   - 耗能: 400 單位/天\n   - 優先級: 必要\n   - 功能: 氧氣、溫度、壓力控制\n   - 無法關閉\n\n2. 科研實驗室\n   - 耗能: 300 單位/天\n   - 優先級: 重要\n   - 功能: 月球樣本分析、實驗\n   - 可調整運作時間\n\n3. 通訊系統\n   - 耗能: 150 單位/天\n   - 優先級: 必要\n   - 功能: 地球通訊、數據傳輸\n   - 可降低功率運作（最低 100 單位）\n\n4. 探測車充電站\n   - 耗能: 200 單位/天\n   - 優先級: 重要\n   - 功能: 探測車充電、維護\n   - 可分時段充電\n\n5. 溫室農場\n   - 耗能: 250 單位/天\n   - 優先級: 次要\n   - 功能: 食物生產、氧氣補充\n   - 可調整光照時間\n\n6. 娛樂設施\n   - 耗能: 100 單位/天\n   - 優先級: 次要\n   - 功能: 太空人心理健康\n   - 可限時開放\n\n總需求: 1400 單位/天\n能源缺口: 400 單位/天\n\n任務：\n1. 在能源限制下，如何分配這些設備的使用？\n2. 如果能源突然減少到 700 單位，應該關閉哪些設備？\n3. 提出一個節能方案，讓所有設備都能運作。",
+        "hints": [
+          {
+            "level": 1,
+            "text": "💡 提示：優先保證生命維持和通訊",
+            "fabotSays": "生命安全永遠是第一位的！"
+          },
+          {
+            "level": 2,
+            "text": "💡 提示：考慮分時段使用設備",
+            "fabotSays": "不是所有設備都需要 24 小時運作！"
+          },
+          {
+            "level": 3,
+            "text": "💡 提示：溫室農場可以提供氧氣，減輕生命維持系統負擔",
+            "fabotSays": "有些設備可以互補！找出協同效應。"
+          }
+        ]
+      },
+      "questions": [
+        {
+          "type": "text",
+          "question": "請提出你的能源分配方案（說明哪些設備如何調整）",
+          "minLength": 100,
+          "keywords": ["生命維持", "通訊", "分時段", "優先級", "節能"],
+          "feedback": "很好的方案！你展現了資源管理和優先級判斷的能力。"
+        },
+        {
+          "type": "multiple_choice",
+          "question": "如果能源突然減少到 700 單位，首先應該保留哪些設備？",
+          "options": [
+            {
+              "id": "A",
+              "text": "生命維持系統 + 通訊系統 + 娛樂設施",
+              "feedback": "娛樂設施不是緊急情況下的優先項目。"
+            },
+            {
+              "id": "B",
+              "text": "生命維持系統 + 通訊系統 + 科研實驗室",
+              "correct": true,
+              "feedback": "正確！在緊急情況下，生命維持（400）+ 通訊（150，可降至100）+ 科研實驗室（部分運作）是最合理的配置。"
+            },
+            {
+              "id": "C",
+              "text": "生命維持系統 + 溫室農場 + 探測車充電",
+              "feedback": "雖然溫室重要，但緊急情況下通訊系統更關鍵。"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "question": "提出一個創新的節能方案，讓所有設備都能運作",
+          "minLength": 80,
+          "keywords": ["分時段", "輪流", "降低功率", "優化", "協同"],
+          "feedback": "創意十足的方案！你展現了創新思維和系統優化能力。"
+        }
+      ],
+      "rewards": {
+        "points": 250,
+        "badges": ["resource_manager", "optimization_expert"],
+        "unlocks": ["resource_optimization_02", "crisis_management_01"],
+        "fabotPraise": "卓越的資源管理能力！你的方案既實用又創新！🌟"
+      },
+      "aiToolSuggestions": [
+        {
+          "tool": "ChatGPT",
+          "prompt": "我需要優化月球基地的能源分配，請幫我分析：\n[貼上數據]\n\n請提供：\n1. 優先級排序\n2. 節能方案\n3. 緊急情況處理"
+        },
+        {
+          "tool": "Claude",
+          "prompt": "作為一個太空基地管理專家，請幫我設計能源優化方案：\n[貼上數據]"
+        },
+        {
+          "tool": "Perplexity",
+          "prompt": "搜尋：太空站能源管理最佳實踐\n然後結合這些數據提出方案：[貼上數據]"
+        }
+      ]
+    }
+  ],
+  "dailyChallenges": [
+    {
+      "day": "monday",
+      "theme": "數據分析",
+      "quickTask": {
+        "title": "快速數據解讀",
+        "data": "月球溫度數據：白天 127°C，夜晚 -173°C\n問題：溫差這麼大的原因是什麼？",
+        "points": 50,
+        "timeLimit": "5 分鐘"
+      }
+    },
+    {
+      "day": "tuesday",
+      "theme": "AI 倫理",
+      "quickTask": {
+        "title": "倫理思考",
+        "scenario": "AI 系統建議犧牲一個探測車來拯救基地，你會接受嗎？",
+        "points": 50,
+        "timeLimit": "5 分鐘"
+      }
+    }
+  ]
+}
