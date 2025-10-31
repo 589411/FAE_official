@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --space-black: #0a0e27;
+  --deep-space: #1a1f3a;
+  --nebula-blue: #2d4a7c;
+  --star-white: #e8f4f8;
+  --energy-cyan: #00d9ff;
+  --warning-amber: #ffb800;
+  --danger-red: #ff3366;
+  --success-green: #00ff88;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-noto-sans-tc), sans-serif;
+}
+
+body {
+  color: var(--star-white);
+  background: var(--space-black);
+}
+
+/* 自定義滾動條 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--space-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--nebula-blue);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--energy-cyan);
+}
+
+/* 全局動畫 */
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* HUD 風格邊框 */
+.hud-border {
+  position: relative;
+  border: 2px solid var(--energy-cyan);
+  box-shadow: 
+    0 0 10px rgba(0, 217, 255, 0.3),
+    inset 0 0 10px rgba(0, 217, 255, 0.1);
+}
+
+.hud-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, transparent, var(--energy-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+
+.hud-border:hover::before {
+  opacity: 0.3;
+}
+
+/* 玻璃態效果 */
+.glass {
+  background: rgba(26, 31, 58, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+/* 文字發光效果 */
+.text-glow {
+  text-shadow: 
+    0 0 10px rgba(0, 217, 255, 0.5),
+    0 0 20px rgba(0, 217, 255, 0.3),
+    0 0 30px rgba(0, 217, 255, 0.2);
+}
+
+/* 按鈕樣式 */
+.btn-primary {
+  @apply px-6 py-3 bg-energy-cyan text-space-black font-bold rounded-lg;
+  @apply transition-all duration-300;
+  @apply hover:bg-star-white hover:shadow-lg hover:shadow-energy-cyan/50;
+  @apply active:scale-95;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 border-2 border-energy-cyan text-energy-cyan font-bold rounded-lg;
+  @apply transition-all duration-300;
+  @apply hover:bg-energy-cyan hover:text-space-black hover:shadow-lg hover:shadow-energy-cyan/50;
+  @apply active:scale-95;
+}
