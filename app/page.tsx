@@ -58,6 +58,9 @@ export default function Home() {
             <a href="/missions/advanced" className="btn-secondary">
               🌟 {t('home.advancedMission')}
             </a>
+            <a href="/curriculum" className="btn-secondary">
+              📚 完整課程
+            </a>
           </div>
         </div>
 
