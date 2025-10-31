@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function CrewInfo() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <motion.div
@@ -37,7 +39,7 @@ export default function CrewInfo() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-energy-cyan flex items-center gap-2">
               <span>🚀</span>
-              <span>任務指揮官</span>
+              <span>{t('crew.title')}</span>
             </h3>
             <button
               onClick={() => setIsExpanded(false)}
@@ -55,14 +57,21 @@ export default function CrewInfo() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <h4 className="text-star-white font-bold text-sm">Joseph</h4>
+                  <h4 className="text-star-white font-bold text-sm">{t('crew.joseph.title')}</h4>
                   <span className="px-2 py-0.5 bg-energy-cyan/20 text-energy-cyan text-xs rounded-full border border-energy-cyan/30">
-                    指揮官
+                    {t('crew.joseph.role')}
                   </span>
                 </div>
-                <p className="text-star-white/70 text-xs leading-relaxed">
-                  你的任務指揮官，將帶領你完成所有太空探險任務，掌握 AI 技術
+                <p className="text-star-white/70 text-xs leading-relaxed mb-2">
+                  {t('crew.joseph.desc')}
                 </p>
+                <a 
+                  href="mailto:future.ark.ai@gmail.com"
+                  className="inline-flex items-center gap-1 text-xs text-energy-cyan hover:text-star-white transition-colors"
+                >
+                  <span>📧</span>
+                  <span>future.ark.ai@gmail.com</span>
+                </a>
               </div>
             </div>
           </div>
@@ -75,13 +84,13 @@ export default function CrewInfo() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <h4 className="text-star-white font-bold text-sm">Joy</h4>
+                  <h4 className="text-star-white font-bold text-sm">{t('crew.joy.title')}</h4>
                   <span className="px-2 py-0.5 bg-energy-purple/20 text-energy-purple text-xs rounded-full border border-energy-purple/30">
-                    特別來賓
+                    {t('crew.joy.role')}
                   </span>
                 </div>
                 <p className="text-star-white/70 text-xs leading-relaxed">
-                  11 歲的年輕探險家，會在特定任務中以特別來賓身份出現，分享她的學習心得
+                  {t('crew.joy.desc')}
                 </p>
               </div>
             </div>
@@ -90,7 +99,7 @@ export default function CrewInfo() {
           {/* 底部標語 */}
           <div className="mt-4 pt-3 border-t border-energy-cyan/20">
             <p className="text-xs text-center text-star-white/50 italic">
-              "跟著 Joseph 指揮官，探索 AI 的無限可能"
+              "{t('crew.motto')}"
             </p>
           </div>
         </motion.div>

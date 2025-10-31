@@ -6,9 +6,12 @@ import SpaceshipHUD from '@/components/ui/SpaceshipHUD';
 import MissionLog from '@/components/ui/MissionLog';
 import AIChat from '@/components/ui/AIChat';
 import CrewInfo from '@/components/ui/CrewInfo';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     // 延遲顯示內容，製造進入效果
@@ -20,6 +23,9 @@ export default function Home() {
     <main className="relative w-full h-screen overflow-hidden">
       {/* 3D 星空背景 */}
       <StarField />
+      
+      {/* 語言切換 */}
+      <LanguageSwitcher />
       
       {/* 主要內容 */}
       <div className={`relative z-10 w-full h-full flex flex-col items-center justify-center transition-opacity duration-1000 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
@@ -38,19 +44,19 @@ export default function Home() {
           </div>
           
           <h1 className="text-6xl md:text-7xl font-bold mb-4 text-glow">
-            未來方舟探險隊
+            {t('home.title')}
           </h1>
           
           <h2 className="text-2xl md:text-3xl text-energy-cyan mb-8">
-            用 <span className="font-bold">AI</span> 開啟多元宇宙的<span className="font-bold">無限可能</span>
+            {t('home.subtitle')}
           </h2>
           
           <div className="flex gap-4 justify-center flex-wrap">
             <a href="/missions/basic" className="btn-primary">
-              🚀 開始探險
+              🚀 {t('home.startMission')}
             </a>
             <a href="/missions/advanced" className="btn-secondary">
-              🌟 進階任務
+              🌟 {t('home.advancedMission')}
             </a>
           </div>
         </div>
