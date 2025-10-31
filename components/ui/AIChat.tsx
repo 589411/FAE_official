@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -9,6 +10,7 @@ interface Message {
 }
 
 export default function AIChat() {
+  const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -33,7 +35,7 @@ export default function AIChat() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: input })
+        body: JSON.stringify({ message: input, language })
       });
 
       const data = await response.json();
@@ -54,7 +56,7 @@ export default function AIChat() {
       console.error('Chat error:', error);
       const errorMessage: Message = {
         role: 'assistant',
-        content: '抱歉，通訊暫時中斷。請稍後再試。',
+        content: t('chat.error'),
         timestamp: new Date().toISOString()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -80,7 +82,7 @@ export default function AIChat() {
           <div className="flex items-center justify-between p-4 border-b border-energy-cyan/30">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-success-green rounded-full animate-pulse"></div>
-              <h3 className="font-bold text-energy-cyan">ARK-01 AI 助手</h3>
+              <h3 className="font-bold text-energy-cyan">{t('chat.title')}</h3>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -94,8 +96,8 @@ export default function AIChat() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 ? (
               <div className="text-center text-star-white/60 mt-8">
-                <p className="mb-2">👋 你好！我是 ARK-01 的 AI 助手</p>
-                <p className="text-sm">有什麼關於 AI 學習的問題嗎？</p>
+                <p className="mb-2">👋 {t('chat.welcome1')}</p>
+                <p className="text-sm">{t('chat.welcome2')}</p>
               </div>
             ) : (
               messages.map((msg, idx) => (
@@ -136,7 +138,7 @@ export default function AIChat() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                placeholder="輸入訊息..."
+                placeholder={t('chat.placeholder')}
                 disabled={loading}
                 className="flex-1 bg-deep-space border border-energy-cyan/30 rounded-lg px-4 py-2 text-star-white placeholder-star-white/50 focus:outline-none focus:border-energy-cyan transition-colors disabled:opacity-50"
               />
@@ -145,7 +147,7 @@ export default function AIChat() {
                 disabled={loading || !input.trim()}
                 className="px-4 py-2 bg-energy-cyan text-space-black rounded-lg font-bold hover:bg-star-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                發送
+                {t('chat.send')}
               </button>
             </div>
           </div>

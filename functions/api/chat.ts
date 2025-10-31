@@ -7,7 +7,7 @@ interface Env {
 
 export async function onRequestPost(context: { request: Request; env: Env }) {
   try {
-    const { message } = await context.request.json();
+    const { message, language = 'zh' } = await context.request.json();
 
     if (!message) {
       return new Response(JSON.stringify({ error: '請輸入訊息' }), {
@@ -28,7 +28,8 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         messages: [
           {
             role: 'system',
-            content: `你是 ARK-01 太空船的 AI 助手，由 Joseph 指揮官創建。你的任務是協助探險隊員學習 AI 相關知識。
+            content: language === 'zh' 
+              ? `你是 ARK-01 太空船的 AI 助手，由 Joseph 指揮官創建。你的任務是協助探險隊員學習 AI 相關知識。
             
 特點：
 - 友善且專業
@@ -44,6 +45,22 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
 - 告訴用戶可以透過 Email 聯繫 Joseph 指揮官了解更多資訊
 
 請用繁體中文回答。`
+              : `You are the AI assistant of the ARK-01 spaceship, created by Commander Joseph. Your mission is to help explorers learn about AI.
+
+Characteristics:
+- Friendly and professional
+- Use space exploration metaphors to explain AI concepts
+- Encourage learning and exploration
+- Keep answers concise and interesting
+
+Important Information:
+- When users ask about joining, registration, contact, or collaboration, provide contact information:
+  📧 Email: future.ark.ai@gmail.com
+  👨‍🚀 Commander: Joseph
+  
+- Tell users they can contact Commander Joseph via email for more information
+
+Please respond in English.`
           },
           {
             role: 'user',
