@@ -195,7 +195,7 @@ export default function CurriculumPage() {
                     <div className="mb-4">
                       <h4 className="text-sm font-bold text-energy-cyan mb-2">🎯 學習技能</h4>
                       <div className="flex flex-wrap gap-2">
-                        {mission.skills.map((skill, idx) => (
+                        {mission.skills.map((skill: string, idx: number) => (
                           <span key={idx} className="px-2 py-1 bg-space-blue/40 text-star-white/80 text-xs rounded">
                             {skill}
                           </span>
@@ -207,7 +207,7 @@ export default function CurriculumPage() {
                     <div className="mb-4">
                       <h4 className="text-sm font-bold text-energy-cyan mb-2">📋 學習目標</h4>
                       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {mission.objectives.map((obj, idx) => (
+                        {mission.objectives.map((obj: string, idx: number) => (
                           <li key={idx} className="text-xs text-star-white/70 flex items-start gap-2">
                             <span className="text-energy-cyan mt-0.5">▸</span>
                             <span>{obj}</span>
@@ -234,7 +234,7 @@ export default function CurriculumPage() {
                     <div>
                       <h4 className="text-sm font-bold text-energy-cyan mb-2">🎁 完成獎勵</h4>
                       <div className="flex flex-wrap gap-2">
-                        {mission.rewards.map((reward, idx) => (
+                        {mission.rewards.map((reward: string, idx: number) => (
                           <span key={idx} className="text-xs text-star-white/80">
                             {reward}
                           </span>
