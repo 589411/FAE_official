@@ -24,7 +24,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo', // 使用較便宜的模型
+        model: 'gpt-4o-mini', // 使用 GPT-4o mini - 更快、更便宜、更智能
         messages: [
           {
             role: 'system',
