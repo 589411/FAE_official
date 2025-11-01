@@ -16,6 +16,12 @@ export default function AIChat() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // 在 Netlify 靜態部署環境中禁用 AI 助手
+  // 只在 Cloudflare Pages 環境中啟用（有 Functions 支援）
+  if (typeof window !== 'undefined' && window.location.hostname === 'futurearkexp.com') {
+    return null;
+  }
+
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 
