@@ -92,7 +92,7 @@ const difficultyConfig = {
 };
 
 export default function BasicMissionsPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [showContent, setShowContent] = useState(false);
   const [selectedMission, setSelectedMission] = useState<number | null>(null);
   const [hoveredMission, setHoveredMission] = useState<number | null>(null);
@@ -335,9 +335,11 @@ export default function BasicMissionsPage() {
                     </div>
 
                     {/* 開始按鈕 */}
-                    <button className="w-full mt-4 px-4 py-2 bg-energy-cyan text-space-dark font-bold rounded-lg hover:bg-star-white transition-all duration-300 hover:shadow-lg hover:shadow-energy-cyan/50">
-                      開始任務 →
-                    </button>
+                    <Link href={`/missions/basic/${mission.id}`}>
+                      <button className="w-full mt-4 px-4 py-2 bg-energy-cyan text-space-dark font-bold rounded-lg hover:bg-star-white transition-all duration-300 hover:shadow-lg hover:shadow-energy-cyan/50">
+                        {language === 'zh' ? '開始任務 →' : 'Start Mission →'}
+                      </button>
+                    </Link>
                   </div>
                 </motion.div>
 

@@ -184,6 +184,7 @@ export default function AdvancedMissionsPage() {
   const { t } = useLanguage();
   const [showContent, setShowContent] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<number | null>(null);
+  const [selectedMission, setSelectedMission] = useState<number | null>(null);
   const [hoveredPlanet, setHoveredPlanet] = useState<number | null>(null);
 
   useEffect(() => {
@@ -426,9 +427,11 @@ export default function AdvancedMissionsPage() {
                     </div>
 
                     {/* 開始按鈕 */}
-                    <button className="w-full mt-3 px-4 py-2 bg-energy-purple text-space-dark font-bold rounded-lg hover:bg-star-white transition-all duration-300 hover:shadow-lg hover:shadow-energy-purple/50 text-sm">
-                      開始任務 →
-                    </button>
+                    <Link href={`/missions/advanced/${mission.id}`}>
+                      <button className="w-full mt-3 px-4 py-2 bg-energy-purple text-space-dark font-bold rounded-lg hover:bg-star-white transition-all duration-300 hover:shadow-lg hover:shadow-energy-purple/50 text-sm">
+                        開始任務 →
+                      </button>
+                    </Link>
                   </div>
                 </motion.div>
 
