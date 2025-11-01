@@ -1,8 +1,9 @@
 // Cloudflare Pages Function - AI 聊天 API
 // 路徑: /api/chat
+// 使用 Cloudflare Workers AI - 完全免費！
 
 interface Env {
-  OPENAI_API_KEY: string;
+  AI: any; // Cloudflare AI binding
 }
 
 export async function onRequestPost(context: { request: Request; env: Env }) {
@@ -16,21 +17,10 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
       });
     }
 
-    // 調用 OpenAI API
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${context.env.OPENAI_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini', // 使用 GPT-4o mini - 更快、更便宜、更智能
-        messages: [
-          {
-            role: 'system',
-            content: language === 'zh' 
-              ? `你是 ARK-01 太空船的 AI 助手，由 Joseph 指揮官創建。你的任務是協助探險隊員學習 AI 相關知識。
-            
+    // 系統提示詞
+    const systemPrompt = language === 'zh' 
+      ? `你是 ARK-01 太空船的 AI 助手，由 Joseph 指揮官創建。你的任務是協助探險隊員學習 AI 相關知識。
+
 特點：
 - 友善且專業
 - 用太空探險的比喻解釋 AI 概念
@@ -45,7 +35,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
 - 告訴用戶可以透過 Email 聯繫 Joseph 指揮官了解更多資訊
 
 請用繁體中文回答。`
-              : `You are the AI assistant of the ARK-01 spaceship, created by Commander Joseph. Your mission is to help explorers learn about AI.
+      : `You are the AI assistant of the ARK-01 spaceship, created by Commander Joseph. Your mission is to help explorers learn about AI.
 
 Characteristics:
 - Friendly and professional
@@ -60,24 +50,24 @@ Important Information:
   
 - Tell users they can contact Commander Joseph via email for more information
 
-Please respond in English.`
-          },
-          {
-            role: 'user',
-            content: message
-          }
-        ],
-        max_tokens: 500,
-        temperature: 0.7
-      })
+Please respond in English.`;
+
+    // 使用 Cloudflare Workers AI
+    const aiResponse = await context.env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+      messages: [
+        {
+          role: 'system',
+          content: systemPrompt
+        },
+        {
+          role: 'user',
+          content: message
+        }
+      ]
     });
 
-    if (!response.ok) {
-      throw new Error('OpenAI API 錯誤');
-    }
-
-    const data = await response.json();
-    const aiMessage = data.choices[0].message.content;
+    // 提取 AI 回覆
+    const aiMessage = aiResponse.response || aiResponse.result?.response || '抱歉，我現在無法回答。';
 
     return new Response(JSON.stringify({
       message: aiMessage,
@@ -92,10 +82,14 @@ Please respond in English.`
   } catch (error) {
     console.error('AI Chat Error:', error);
     return new Response(JSON.stringify({
-      error: '抱歉，太空船通訊暫時中斷，請稍後再試。'
+      error: '抱歉，太空船通訊暫時中斷，請稍後再試。',
+      details: error instanceof Error ? error.message : String(error)
     }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
     });
   }
 }
