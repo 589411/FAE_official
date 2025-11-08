@@ -1,48 +1,45 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LogEntry {
   id: string;
+  logKey: string; // 用於翻譯的鍵
   timestamp: string;
-  title: string;
-  content: string;
   type: 'exploration' | 'learning' | 'achievement';
 }
 
-// 模擬航行日誌數據
+// 模擬航行日誌數據（不包含文字內容，使用翻譯鍵）
 const sampleLogs: LogEntry[] = [
   {
     id: 'log-001',
+    logKey: '001',
     timestamp: '2025-10-31T14:23:00Z',
-    title: '月球軌道進入成功',
-    content: '太空船 ARK-01 成功進入月球軌道。開始進行 AI 基礎能力訓練任務。',
     type: 'exploration'
   },
   {
     id: 'log-002',
+    logKey: '002',
     timestamp: '2025-10-30T09:15:00Z',
-    title: 'Prompt Engineering 實戰完成',
-    content: '完成了 AI 對話技巧訓練。學員們成功掌握了如何與 AI 進行有效溝通。',
     type: 'learning'
   },
   {
     id: 'log-003',
+    logKey: '003',
     timestamp: '2025-10-29T16:45:00Z',
-    title: '數據分析任務達成',
-    content: '利用 AI 工具成功分析了月球表面數據，發現了新的學習模式。',
     type: 'achievement'
   },
   {
     id: 'log-004',
+    logKey: '004',
     timestamp: '2025-10-28T11:30:00Z',
-    title: '火星航道規劃中',
-    content: '準備進入火星任務階段，將開始 AI 行銷與自動化應用的學習。',
     type: 'exploration'
   },
 ];
 
 export default function MissionLog() {
+  const { t, language } = useLanguage();
   const [showLog, setShowLog] = useState(false);
   const [currentLog, setCurrentLog] = useState<LogEntry | null>(null);
 
@@ -95,7 +92,7 @@ export default function MissionLog() {
         <div className="text-2xl">{typeIcons[currentLog.type]}</div>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-energy-cyan font-bold">{currentLog.title}</h3>
+            <h3 className="text-energy-cyan font-bold">{t(`log.${currentLog.logKey}.title`)}</h3>
             <button
               onClick={() => setShowLog(false)}
               className="text-star-white/50 hover:text-star-white transition-colors"
@@ -103,9 +100,9 @@ export default function MissionLog() {
               ✕
             </button>
           </div>
-          <p className="text-sm text-star-white/80 mb-2">{currentLog.content}</p>
+          <p className="text-sm text-star-white/80 mb-2">{t(`log.${currentLog.logKey}.content`)}</p>
           <div className="text-xs text-star-white/50">
-            {new Date(currentLog.timestamp).toLocaleString('zh-TW')}
+            {new Date(currentLog.timestamp).toLocaleString(language === 'zh' ? 'zh-TW' : 'en-US')}
           </div>
         </div>
       </div>

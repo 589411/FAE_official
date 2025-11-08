@@ -64,25 +64,25 @@ export default function CurriculumPage() {
             <span className="text-energy-cyan font-mono text-sm">📚 COMPLETE CURRICULUM</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-glow">
-            完整課程大綱
+            {t('curriculum.title')}
           </h1>
           <p className="text-xl text-energy-cyan mb-4">
-            系統化學習 AI，從基礎到進階的完整學習路徑
+            {t('curriculum.subtitle')}
           </p>
           
           {/* 課程統計 */}
           <div className="flex items-center justify-center gap-8 text-star-white/60 text-sm mt-8">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎯</span>
-              <span>{totalMissions} 個任務</span>
+              <span>{totalMissions} {t('curriculum.missions')}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⏱️</span>
-              <span>{totalHours} 小時</span>
+              <span>{totalHours} {t('curriculum.hours')}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎓</span>
-              <span>完整認證</span>
+              <span>{t('curriculum.certification')}</span>
             </div>
           </div>
 
@@ -98,7 +98,7 @@ export default function CurriculumPage() {
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-energy-cyan to-energy-purple text-space-dark font-bold rounded-lg hover:shadow-glow transition-all duration-300 hover:scale-105"
             >
               <span>📧</span>
-              <span>聯絡 Joseph 指揮官報名</span>
+              <span>{t('curriculum.contact')}</span>
             </a>
           </motion.div>
         </motion.div>
@@ -113,7 +113,7 @@ export default function CurriculumPage() {
                 : 'bg-space-blue/20 text-star-white/70 hover:bg-space-blue/30'
             }`}
           >
-            完整課程
+            {t('curriculum.all')}
           </button>
           <button
             onClick={() => setSelectedLevel('basic')}
@@ -123,7 +123,7 @@ export default function CurriculumPage() {
                 : 'bg-space-blue/20 text-star-white/70 hover:bg-space-blue/30'
             }`}
           >
-            基礎課程
+            {t('curriculum.basic')}
           </button>
           <button
             onClick={() => setSelectedLevel('advanced')}
@@ -133,7 +133,7 @@ export default function CurriculumPage() {
                 : 'bg-space-blue/20 text-star-white/70 hover:bg-space-blue/30'
             }`}
           >
-            進階課程
+            {t('curriculum.advanced')}
           </button>
         </div>
 

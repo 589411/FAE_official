@@ -59,7 +59,7 @@ export default function Home() {
               🌟 {t('home.advancedMission')}
             </a>
             <a href="/curriculum" className="btn-secondary">
-              📚 完整課程
+              📚 {t('home.curriculum')}
             </a>
           </div>
         </div>

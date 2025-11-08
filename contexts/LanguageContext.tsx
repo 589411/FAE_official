@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type Language = 'zh' | 'en';
 
@@ -20,6 +20,7 @@ const translations = {
     'home.subtitle': '用 AI 開啟多元宇宙的無限可能',
     'home.startMission': '開始探險',
     'home.advancedMission': '進階任務',
+    'home.curriculum': '完整課程',
     
     // 導航
     'nav.home': '首頁',
@@ -59,9 +60,28 @@ const translations = {
     'mission.rewards': '獎勵',
     'mission.startMission': '開始任務',
     'mission.difficulty.beginner': '入門',
-    'mission.difficulty.intermediate': '中級',
-    'mission.difficulty.advanced': '進階',
+    'mission.difficulty.intermediate': '進階',
+    'mission.difficulty.advanced': '高級',
     'mission.difficulty.expert': '專家',
+    'mission.clickDetails': '點擊查看詳情',
+    'mission.learningSkills': '學習技能',
+    'mission.learningObjectives': '學習目標',
+    'mission.missionRewards': '任務獎勵',
+    'mission.startMissionBtn': '開始任務',
+    
+    // 基礎任務頁面
+    'basic.completeTitle': '完成所有任務，解鎖進階挑戰',
+    'basic.badgeRewards': '徽章獎勵',
+    'basic.totalPoints': '總探險點數',
+    'basic.advancedPass': '進階通行證',
+    'basic.completeDesc': '完成基礎任務後，你將獲得',
+    'basic.conquerorTitle': '「月球征服者」',
+    'basic.completeDesc2': '稱號，並解鎖通往太陽系的進階探險之旅！',
+    'basic.previewAdvanced': '預覽進階任務',
+    
+    // 進階任務頁面
+    'advanced.prerequisites': '先決條件',
+    'advanced.useCases': '實戰應用',
     
     // AI 聊天
     'chat.title': 'ARK-01 AI 助手',
@@ -70,6 +90,35 @@ const translations = {
     'chat.welcome1': '你好！我是 ARK-01 的 AI 助手',
     'chat.welcome2': '有什麼關於 AI 學習的問題嗎？',
     'chat.error': '抱歉，通訊暫時中斷。請稍後再試。',
+    
+    // HUD 系統
+    'hud.online': 'ARK-01 在線',
+    'hud.missionDays': '任務天數',
+    'hud.systemTime': '系統時間',
+    'hud.status': '狀態',
+    'hud.operational': '正常運行',
+    'hud.days': '天',
+    
+    // 課程頁面
+    'curriculum.title': '完整課程大綱',
+    'curriculum.subtitle': '系統化學習 AI，從基礎到進階的完整學習路徑',
+    'curriculum.missions': '個任務',
+    'curriculum.hours': '小時',
+    'curriculum.certification': '完整認證',
+    'curriculum.contact': '聯絡 Joseph 指揮官報名',
+    'curriculum.all': '完整課程',
+    'curriculum.basic': '基礎課程',
+    'curriculum.advanced': '進階課程',
+    
+    // 任務日誌
+    'log.001.title': '月球軌道進入成功',
+    'log.001.content': '太空船 ARK-01 成功進入月球軌道。開始進行 AI 基礎能力訓練任務。',
+    'log.002.title': 'Prompt Engineering 實戰完成',
+    'log.002.content': '完成了 AI 對話技巧訓練。學員們成功掌握了如何與 AI 進行有效溝通。',
+    'log.003.title': '數據分析任務達成',
+    'log.003.content': '利用 AI 工具成功分析了月球表面數據，發現了新的學習模式。',
+    'log.004.title': '火星航道規劃中',
+    'log.004.content': '準備進入火星任務階段，將開始 AI 行銷與自動化應用的學習。',
   },
   en: {
     // Home
@@ -77,6 +126,7 @@ const translations = {
     'home.subtitle': 'Unlock Infinite Possibilities with AI in the Multiverse',
     'home.startMission': 'Start Mission',
     'home.advancedMission': 'Advanced Missions',
+    'home.curriculum': 'Full Curriculum',
     
     // Navigation
     'nav.home': 'Home',
@@ -119,6 +169,25 @@ const translations = {
     'mission.difficulty.intermediate': 'Intermediate',
     'mission.difficulty.advanced': 'Advanced',
     'mission.difficulty.expert': 'Expert',
+    'mission.clickDetails': 'Click for details',
+    'mission.learningSkills': 'Learning Skills',
+    'mission.learningObjectives': 'Learning Objectives',
+    'mission.missionRewards': 'Mission Rewards',
+    'mission.startMissionBtn': 'Start Mission',
+    
+    // Basic Missions Page
+    'basic.completeTitle': 'Complete All Missions to Unlock Advanced Challenges',
+    'basic.badgeRewards': 'Badge Rewards',
+    'basic.totalPoints': 'Total Explorer Points',
+    'basic.advancedPass': 'Advanced Pass',
+    'basic.completeDesc': 'After completing basic missions, you will earn the',
+    'basic.conquerorTitle': '"Lunar Conqueror"',
+    'basic.completeDesc2': 'title and unlock the advanced exploration journey to the Solar System!',
+    'basic.previewAdvanced': 'Preview Advanced Missions',
+    
+    // Advanced Missions Page
+    'advanced.prerequisites': 'Prerequisites',
+    'advanced.useCases': 'Use Cases',
     
     // AI Chat
     'chat.title': 'ARK-01 AI Assistant',
@@ -127,18 +196,68 @@ const translations = {
     'chat.welcome1': 'Hello! I\'m the ARK-01 AI Assistant',
     'chat.welcome2': 'Any questions about AI learning?',
     'chat.error': 'Sorry, communication temporarily interrupted. Please try again later.',
+    
+    // HUD System
+    'hud.online': 'ARK-01 ONLINE',
+    'hud.missionDays': 'Mission Days',
+    'hud.systemTime': 'System Time',
+    'hud.status': 'Status',
+    'hud.operational': 'Operational',
+    'hud.days': 'Days',
+    
+    // Curriculum Page
+    'curriculum.title': 'Complete Curriculum',
+    'curriculum.subtitle': 'Systematic AI learning path from fundamentals to advanced',
+    'curriculum.missions': 'Missions',
+    'curriculum.hours': 'Hours',
+    'curriculum.certification': 'Full Certification',
+    'curriculum.contact': 'Contact Commander Joseph to Enroll',
+    'curriculum.all': 'Full Curriculum',
+    'curriculum.basic': 'Basic Course',
+    'curriculum.advanced': 'Advanced Course',
+    
+    // Mission Logs
+    'log.001.title': 'Lunar Orbit Entry Successful',
+    'log.001.content': 'Spaceship ARK-01 successfully entered lunar orbit. Beginning AI fundamentals training mission.',
+    'log.002.title': 'Prompt Engineering Practice Completed',
+    'log.002.content': 'Completed AI dialogue skills training. Cadets successfully mastered effective AI communication.',
+    'log.003.title': 'Data Analysis Mission Achieved',
+    'log.003.content': 'Successfully analyzed lunar surface data using AI tools, discovering new learning patterns.',
+    'log.004.title': 'Mars Route Planning',
+    'log.004.content': 'Preparing to enter Mars mission phase, will begin learning AI marketing and automation applications.',
   }
 };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
+  // 初始化時總是使用默認語言，避免 hydration 錯誤
   const [language, setLanguage] = useState<Language>('zh');
+  const [isClient, setIsClient] = useState(false);
+
+  // 在客戶端掛載後讀取 localStorage
+  useEffect(() => {
+    setIsClient(true);
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem('fae-language');
+      if (savedLanguage === 'en' || savedLanguage === 'zh') {
+        setLanguage(savedLanguage);
+      }
+    }
+  }, []);
+
+  // 當語言改變時，保存到 localStorage
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('fae-language', lang);
+    }
+  };
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations.zh] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

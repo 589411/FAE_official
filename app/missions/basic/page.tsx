@@ -5,90 +5,14 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { basicMissionsData } from '@/data/missions';
 
-const basicMissions = [
-  {
-    id: 1,
-    title: '太空船發射：AI基礎能力啟動',
-    subtitle: 'Mission 01 | Rocket Launch',
-    description: '從零開始認識 AI，了解機器學習的基本原理，學會使用 ChatGPT 等 AI 工具提升工作效率',
-    icon: '🚀',
-    status: 'available',
-    duration: '2-3 小時',
-    difficulty: 'beginner',
-    points: 100,
-    skills: ['AI 基礎概念', 'Prompt 工程', '工具應用'],
-    objectives: [
-      '理解 AI 與機器學習的核心概念',
-      '掌握 ChatGPT 的基本使用技巧',
-      '學會撰寫有效的 AI 提示詞',
-      '完成第一個 AI 輔助專案'
-    ],
-    rewards: ['🎖️ 太空探險者徽章', '⭐ 100 探險點數', '🔓 解鎖月球任務']
-  },
-  {
-    id: 2,
-    title: '月球登陸準備：數據分析與決策演練',
-    subtitle: 'Mission 02 | Lunar Preparation',
-    description: '學習如何使用 AI 進行數據分析，從海量資訊中提取關鍵洞察，做出數據驅動的決策',
-    icon: '🌙',
-    status: 'available',
-    duration: '3-4 小時',
-    difficulty: 'beginner',
-    points: 150,
-    skills: ['數據分析', '資訊提取', '決策思維'],
-    objectives: [
-      '使用 AI 工具進行數據清理與整理',
-      '學會從數據中發現趨勢與模式',
-      '掌握數據視覺化的基本技巧',
-      '完成一個數據分析專案'
-    ],
-    rewards: ['🎖️ 數據探索者徽章', '⭐ 150 探險點數', '📊 數據分析工具包']
-  },
-  {
-    id: 3,
-    title: '月球探索與研究：解碼與洞察的應用',
-    subtitle: 'Mission 03 | Lunar Exploration',
-    description: '深入探索 AI 在研究與分析中的應用，學會使用 AI 進行文獻研究、市場調查和競品分析',
-    icon: '🔍',
-    status: 'available',
-    duration: '4-5 小時',
-    difficulty: 'intermediate',
-    points: 200,
-    skills: ['研究方法', '洞察分析', '報告撰寫'],
-    objectives: [
-      '使用 AI 進行快速文獻回顧',
-      '掌握市場研究與競品分析技巧',
-      '學會從多維度分析問題',
-      '產出專業的研究報告'
-    ],
-    rewards: ['🎖️ 月球研究員徽章', '⭐ 200 探險點數', '🔬 研究工具組']
-  },
-  {
-    id: 4,
-    title: '月球宣示：完成成就與獎勵解鎖',
-    subtitle: 'Mission 04 | Lunar Declaration',
-    description: '整合所學技能，完成一個綜合性的 AI 應用專案，展示你的學習成果並解鎖進階任務',
-    icon: '🏆',
-    status: 'available',
-    duration: '5-6 小時',
-    difficulty: 'intermediate',
-    points: 250,
-    skills: ['專案整合', '成果展示', '問題解決'],
-    objectives: [
-      '設計並執行一個完整的 AI 專案',
-      '整合前三個任務所學的技能',
-      '製作專業的成果展示',
-      '通過最終評估測驗'
-    ],
-    rewards: ['🏅 月球征服者徽章', '⭐ 250 探險點數', '🚀 進階任務通行證', '🎁 神秘獎勵包']
-  }
-];
 
 const difficultyConfig = {
-  beginner: { label: '入門', color: 'text-green-400 bg-green-400/20' },
-  intermediate: { label: '進階', color: 'text-yellow-400 bg-yellow-400/20' },
-  advanced: { label: '高級', color: 'text-red-400 bg-red-400/20' }
+  beginner: { color: 'text-green-400 bg-green-400/20' },
+  intermediate: { color: 'text-yellow-400 bg-yellow-400/20' },
+  advanced: { color: 'text-red-400 bg-red-400/20' },
+  expert: { color: 'text-purple-400 bg-purple-400/20' }
 };
 
 export default function BasicMissionsPage() {
@@ -96,6 +20,9 @@ export default function BasicMissionsPage() {
   const [showContent, setShowContent] = useState(false);
   const [selectedMission, setSelectedMission] = useState<number | null>(null);
   const [hoveredMission, setHoveredMission] = useState<number | null>(null);
+  
+  // 根據語言獲取任務數據
+  const basicMissions = basicMissionsData[language];
 
   useEffect(() => {
     const timer = setTimeout(() => setShowContent(true), 300);
@@ -276,13 +203,13 @@ export default function BasicMissionsPage() {
                 {/* 任務資訊標籤 */}
                 <div className="flex flex-wrap items-center gap-2 mb-4">
                   <span className={`px-2 py-1 rounded text-xs font-medium ${difficultyConfig[mission.difficulty as keyof typeof difficultyConfig].color}`}>
-                    {difficultyConfig[mission.difficulty as keyof typeof difficultyConfig].label}
+                    {t(`mission.difficulty.${mission.difficulty}`)}
                   </span>
                   <span className="px-2 py-1 rounded bg-space-blue/30 text-star-white/70 text-xs">
                     ⏱️ {mission.duration}
                   </span>
                   <span className="px-2 py-1 rounded bg-energy-cyan/20 text-energy-cyan text-xs font-medium">
-                    ⭐ {mission.points} 點
+                    ⭐ {mission.points} {t('mission.points')}
                   </span>
                 </div>
 
@@ -299,7 +226,7 @@ export default function BasicMissionsPage() {
                   <div className="pt-4 border-t border-energy-cyan/20 space-y-4">
                     {/* 學習技能 */}
                     <div>
-                      <h4 className="text-sm font-bold text-energy-cyan mb-2">🎯 學習技能</h4>
+                      <h4 className="text-sm font-bold text-energy-cyan mb-2">🎯 {t('mission.learningSkills')}</h4>
                       <div className="flex flex-wrap gap-2">
                         {mission.skills.map((skill, idx) => (
                           <span key={idx} className="px-2 py-1 bg-space-blue/40 text-star-white/80 text-xs rounded">
@@ -311,7 +238,7 @@ export default function BasicMissionsPage() {
 
                     {/* 學習目標 */}
                     <div>
-                      <h4 className="text-sm font-bold text-energy-cyan mb-2">📋 學習目標</h4>
+                      <h4 className="text-sm font-bold text-energy-cyan mb-2">📋 {t('mission.learningObjectives')}</h4>
                       <ul className="space-y-1">
                         {mission.objectives.map((obj, idx) => (
                           <li key={idx} className="text-xs text-star-white/70 flex items-start gap-2">
@@ -324,7 +251,7 @@ export default function BasicMissionsPage() {
 
                     {/* 任務獎勵 */}
                     <div>
-                      <h4 className="text-sm font-bold text-energy-cyan mb-2">🎁 任務獎勵</h4>
+                      <h4 className="text-sm font-bold text-energy-cyan mb-2">🎁 {t('mission.missionRewards')}</h4>
                       <div className="space-y-1">
                         {mission.rewards.map((reward, idx) => (
                           <div key={idx} className="text-xs text-star-white/80">
@@ -337,7 +264,7 @@ export default function BasicMissionsPage() {
                     {/* 開始按鈕 */}
                     <Link href={`/missions/basic/${mission.id}`}>
                       <button className="w-full mt-4 px-4 py-2 bg-energy-cyan text-space-dark font-bold rounded-lg hover:bg-star-white transition-all duration-300 hover:shadow-lg hover:shadow-energy-cyan/50">
-                        {language === 'zh' ? '開始任務 →' : 'Start Mission →'}
+                        {t('mission.startMissionBtn')} →
                       </button>
                     </Link>
                   </div>
@@ -346,7 +273,7 @@ export default function BasicMissionsPage() {
                 {/* 點擊提示 */}
                 {selectedMission !== mission.id && (
                   <div className="text-center mt-2 text-xs text-energy-cyan/50 group-hover:text-energy-cyan transition-colors">
-                    點擊查看詳情 ↓
+                    {t('mission.clickDetails')} ↓
                   </div>
                 )}
 
@@ -364,33 +291,32 @@ export default function BasicMissionsPage() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="max-w-4xl mx-auto mt-16 p-8 rounded-xl bg-gradient-to-r from-space-blue/30 via-space-blue/20 to-space-blue/30 backdrop-blur-sm border border-energy-cyan/30"
         >
-          <h3 className="text-2xl font-bold text-center mb-6 text-glow">🎯 完成所有任務，解鎖進階挑戰</h3>
+          <h3 className="text-2xl font-bold text-center mb-6 text-glow">🎯 {t('basic.completeTitle')}</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="text-center p-4 rounded-lg bg-space-dark/50">
               <div className="text-3xl mb-2">🏆</div>
               <div className="text-2xl font-bold text-energy-cyan mb-1">4</div>
-              <div className="text-sm text-star-white/60">徽章獎勵</div>
+              <div className="text-sm text-star-white/60">{t('basic.badgeRewards')}</div>
             </div>
             <div className="text-center p-4 rounded-lg bg-space-dark/50">
               <div className="text-3xl mb-2">⭐</div>
               <div className="text-2xl font-bold text-energy-cyan mb-1">700</div>
-              <div className="text-sm text-star-white/60">總探險點數</div>
+              <div className="text-sm text-star-white/60">{t('basic.totalPoints')}</div>
             </div>
             <div className="text-center p-4 rounded-lg bg-space-dark/50">
               <div className="text-3xl mb-2">🚀</div>
               <div className="text-2xl font-bold text-energy-cyan mb-1">1</div>
-              <div className="text-sm text-star-white/60">進階通行證</div>
+              <div className="text-sm text-star-white/60">{t('basic.advancedPass')}</div>
             </div>
           </div>
 
           <div className="text-center">
             <p className="text-star-white/70 mb-6">
-              完成基礎任務後，你將獲得<span className="text-energy-cyan font-bold">「月球征服者」</span>稱號，
-              並解鎖通往太陽系的進階探險之旅！
+              {t('basic.completeDesc')}<span className="text-energy-cyan font-bold">{t('basic.conquerorTitle')}</span>{t('basic.completeDesc2')}
             </p>
             <Link href="/missions/advanced" className="btn-secondary inline-block">
-              預覽進階任務 →
+              {t('basic.previewAdvanced')} →
             </Link>
           </div>
         </motion.div>

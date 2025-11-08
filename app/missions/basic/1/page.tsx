@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { basicMissionsData } from '@/data/missions';
 
 interface Section {
   id: string;
@@ -20,6 +21,9 @@ export default function Mission1Page() {
   const [progress, setProgress] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const [showFeedback, setShowFeedback] = useState(false);
+  
+  // 從數據文件獲取任務信息
+  const missionData = basicMissionsData[language][0]; // 第一個任務
 
   const sections: Section[] = language === 'zh' ? [
     {
@@ -424,7 +428,7 @@ export default function Mission1Page() {
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-glow">
-            {language === 'zh' ? '太空船發射：AI基礎能力啟動' : 'Rocket Launch: AI Fundamentals Activation'}
+            {missionData.title}
           </h1>
           
           {/* 進度條 */}

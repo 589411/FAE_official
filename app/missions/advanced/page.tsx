@@ -5,168 +5,9 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { advancedMissionsData } from '@/data/missions';
 
 type DifficultyLevel = 'intermediate' | 'advanced' | 'expert';
-
-interface Mission {
-  id: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: string;
-  planet: string;
-  planetInfo: string;
-  difficulty: DifficultyLevel;
-  status: string;
-  duration: string;
-  points: number;
-  prerequisites: string[];
-  skills: string[];
-  objectives: string[];
-  useCases: string[];
-  rewards: string[];
-}
-
-const advancedMissions: Mission[] = [
-  {
-    id: 1,
-    title: '水星行動：AI文字與對話應用',
-    subtitle: 'Mercury Mission | Text & Dialogue',
-    description: '掌握進階 Prompt 工程、對話系統設計、內容生成與文案優化，打造智能化的文字應用',
-    icon: '☿️',
-    planet: 'Mercury',
-    planetInfo: '水星：距離太陽最近的行星，象徵快速溝通與訊息傳遞',
-    difficulty: 'intermediate',
-    status: 'available',
-    duration: '6-8 小時',
-    points: 300,
-    prerequisites: ['完成所有基礎任務'],
-    skills: ['進階 Prompt', '對話設計', '文案優化', 'API 整合'],
-    objectives: [
-      '掌握進階 Prompt Engineering 技巧',
-      '設計與實作 AI 對話機器人',
-      '學會使用 AI 進行內容創作與改寫',
-      '整合 ChatGPT API 到應用程式'
-    ],
-    useCases: ['智能客服', '內容生成', '文案優化', '自動回覆'],
-    rewards: ['🎖️ 水星使者徽章', '⭐ 300 探險點數', '🤖 AI 對話模板庫']
-  },
-  {
-    id: 2,
-    title: '金星探索：AI視覺與圖像生成',
-    subtitle: 'Venus Mission | Visual & Image',
-    description: '學習 AI 圖像生成、圖片編輯、視覺設計與品牌視覺應用，釋放視覺創意的無限可能',
-    icon: '♀️',
-    planet: 'Venus',
-    planetInfo: '金星：太陽系最明亮的行星，象徵美學與視覺藝術',
-    difficulty: 'intermediate',
-    status: 'available',
-    duration: '7-9 小時',
-    points: 350,
-    prerequisites: ['完成水星任務'],
-    skills: ['AI 繪圖', '圖像編輯', '視覺設計', '風格轉換'],
-    objectives: [
-      '掌握 Midjourney, DALL-E, Stable Diffusion',
-      '學會 AI 輔助視覺設計流程',
-      '創作品牌視覺與行銷素材',
-      '掌握圖像風格轉換技術'
-    ],
-    useCases: ['品牌設計', '行銷素材', '社群圖文', '產品視覺'],
-    rewards: ['🎖️ 金星藝術家徽章', '⭐ 350 探險點數', '🎨 AI 視覺工具包']
-  },
-  {
-    id: 3,
-    title: '火星任務：AI行銷與自動化應用',
-    subtitle: 'Mars Mission | Marketing & Automation',
-    description: '運用 AI 優化行銷流程、內容策略、客戶經營與數據分析，打造智能行銷系統',
-    icon: '♂️',
-    planet: 'Mars',
-    planetInfo: '火星：紅色行星，象徵行動力與執行力',
-    difficulty: 'advanced',
-    status: 'available',
-    duration: '8-10 小時',
-    points: 400,
-    prerequisites: ['完成水星與金星任務'],
-    skills: ['行銷自動化', 'SEO 優化', '客戶分析', '成效追蹤'],
-    objectives: [
-      '使用 AI 建立內容行銷系統',
-      '自動化社群媒體管理與發文',
-      '利用 AI 進行客戶分群與精準行銷',
-      '建立數據驅動的行銷決策流程'
-    ],
-    useCases: ['內容行銷', '社群管理', 'Email 行銷', '客戶經營'],
-    rewards: ['🎖️ 火星征服者徽章', '⭐ 400 探險點數', '📊 行銷自動化套件']
-  },
-  {
-    id: 4,
-    title: '木星航道：AI資料分析與洞察',
-    subtitle: 'Jupiter Mission | Data & Insights',
-    description: '深入大數據分析、預測模型、商業智能與決策支持，成為數據科學家',
-    icon: '♃',
-    planet: 'Jupiter',
-    planetInfo: '木星：太陽系最大的行星，象徵幾大數據與深度洞察',
-    difficulty: 'advanced',
-    status: 'available',
-    duration: '10-12 小時',
-    points: 450,
-    prerequisites: ['完成火星任務'],
-    skills: ['數據挖掘', '預測分析', '商業智能', '視覺化報表'],
-    objectives: [
-      '使用 AI 進行進階數據分析',
-      '建立預測模型與趨勢分析',
-      '創建互動式數據儀表板',
-      '產出可執行的商業洞察報告'
-    ],
-    useCases: ['業務分析', '趨勢預測', '風險評估', '決策支持'],
-    rewards: ['🎖️ 木星分析師徽章', '⭐ 450 探險點數', '📊 數據科學工具箱']
-  },
-  {
-    id: 5,
-    title: '土星工坊：AI語音與多媒體應用',
-    subtitle: 'Saturn Mission | Voice & Multimedia',
-    description: '探索 AI 語音合成、音樂生成、影片製作與多媒體整合，打造沉浸式體驗',
-    icon: '♄',
-    planet: 'Saturn',
-    planetInfo: '土星：擁有壯麗光環，象徵多元媒體與豐富內容',
-    difficulty: 'expert',
-    status: 'available',
-    duration: '12-15 小時',
-    points: 500,
-    prerequisites: ['完成木星任務'],
-    skills: ['AI 語音', '音樂生成', '影片製作', '多媒體整合'],
-    objectives: [
-      '掌握 AI 語音合成與識別技術',
-      '使用 AI 生成音樂與音效',
-      '創作 AI 輔助的影片內容',
-      '整合多種 AI 工具打造完整專案'
-    ],
-    useCases: ['有聲書', 'Podcast', '影片配音', '多媒體創作'],
-    rewards: ['🎖️ 土星創作者徽章', '⭐ 500 探險點數', '🎧多媒體創作套件']
-  },
-  {
-    id: 6,
-    title: '天王星與海王星：AI前沿應用前瞻',
-    subtitle: 'Uranus & Neptune | Future Tech',
-    description: '探索 AI 最前沿技術：AGI、多模態 AI、AI Agent、自主系統，成為 AI 領域先驅',
-    icon: '⛢',
-    planet: 'Uranus & Neptune',
-    planetInfo: '外太陽系：神秘的遠方行星，象徵前沿探索與未來願景',
-    difficulty: 'expert',
-    status: 'available',
-    duration: '15-20 小時',
-    points: 600,
-    prerequisites: ['完成所有前置任務'],
-    skills: ['AGI 概念', '多模態 AI', 'AI Agent', '未來趨勢'],
-    objectives: [
-      '了解 AGI 與未來 AI 發展趨勢',
-      '學習多模態 AI 模型的應用',
-      '建立自主 AI Agent 系統',
-      '探索 AI 在各領域的未來可能性'
-    ],
-    useCases: ['自主系統', '智能助理', '跨模態應用', '未來場景'],
-    rewards: ['🏅 太陽系征服者徽章', '⭐ 600 探險點數', '🚀 AI 先驅證書', '🌟 終極獎勵包']
-  }
-];
 
 const difficultyColors: Record<DifficultyLevel, string> = {
   intermediate: 'text-green-400 bg-green-400/20',
@@ -174,14 +15,12 @@ const difficultyColors: Record<DifficultyLevel, string> = {
   expert: 'text-red-400 bg-red-400/20'
 };
 
-const difficultyLabels: Record<DifficultyLevel, string> = {
-  intermediate: '中階',
-  advanced: '進階',
-  expert: '專家'
-};
 
 export default function AdvancedMissionsPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // 根據語言獲取任務數據
+  const advancedMissions = advancedMissionsData[language];
   const [showContent, setShowContent] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<number | null>(null);
   const [selectedMission, setSelectedMission] = useState<number | null>(null);
@@ -193,7 +32,7 @@ export default function AdvancedMissionsPage() {
   }, []);
 
   const totalPoints = advancedMissions.reduce((sum, m) => sum + m.points, 0);
-  const totalDuration = '58-74 小時';
+  const totalDuration = language === 'zh' ? '58-74 小時' : '58-74 Hours';
 
   return (
     <main className="relative w-full min-h-screen overflow-x-hidden bg-gradient-to-b from-space-dark via-space-purple/20 to-space-dark">
@@ -285,7 +124,7 @@ export default function AdvancedMissionsPage() {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⭐</span>
-              <span>{totalPoints} 點數</span>
+              <span>{totalPoints} {t('mission.points')}</span>
             </div>
           </div>
         </motion.div>
@@ -345,14 +184,14 @@ export default function AdvancedMissionsPage() {
                 
                 {/* 任務資訊標籤 */}
                 <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${difficultyColors[mission.difficulty]}`}>
-                    {difficultyLabels[mission.difficulty]}
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${difficultyColors[mission.difficulty as DifficultyLevel]}`}>
+                    {t(`mission.difficulty.${mission.difficulty}`)}
                   </span>
                   <span className="px-2 py-1 rounded bg-space-purple/30 text-star-white/70 text-xs">
                     ⏱️ {mission.duration}
                   </span>
                   <span className="px-2 py-1 rounded bg-energy-purple/20 text-energy-purple text-xs font-medium">
-                    ⭐ {mission.points} 點
+                    ⭐ {mission.points} {t('mission.points')}
                   </span>
                 </div>
 
@@ -369,7 +208,7 @@ export default function AdvancedMissionsPage() {
                   <div className="pt-4 border-t border-energy-purple/20 space-y-3">
                     {/* 先決條件 */}
                     <div>
-                      <h4 className="text-xs font-bold text-energy-purple mb-1">🔐 先決條件</h4>
+                      <h4 className="text-xs font-bold text-energy-purple mb-1">🔐 {t('advanced.prerequisites')}</h4>
                       <div className="space-y-1">
                         {mission.prerequisites.map((prereq, idx) => (
                           <div key={idx} className="text-xs text-star-white/70">• {prereq}</div>
@@ -379,7 +218,7 @@ export default function AdvancedMissionsPage() {
 
                     {/* 學習技能 */}
                     <div>
-                      <h4 className="text-xs font-bold text-energy-purple mb-1">🎯 學習技能</h4>
+                      <h4 className="text-xs font-bold text-energy-purple mb-1">🎯 {t('mission.learningSkills')}</h4>
                       <div className="flex flex-wrap gap-1">
                         {mission.skills.map((skill, idx) => (
                           <span key={idx} className="px-2 py-0.5 bg-space-purple/40 text-star-white/80 text-xs rounded">
@@ -391,7 +230,7 @@ export default function AdvancedMissionsPage() {
 
                     {/* 實戰應用 */}
                     <div>
-                      <h4 className="text-xs font-bold text-energy-purple mb-1">💼 實戰應用</h4>
+                      <h4 className="text-xs font-bold text-energy-purple mb-1">💼 {t('advanced.useCases')}</h4>
                       <div className="flex flex-wrap gap-1">
                         {mission.useCases.map((useCase, idx) => (
                           <span key={idx} className="px-2 py-0.5 bg-energy-purple/10 text-energy-purple text-xs rounded border border-energy-purple/30">
@@ -403,7 +242,7 @@ export default function AdvancedMissionsPage() {
 
                     {/* 學習目標 */}
                     <div>
-                      <h4 className="text-xs font-bold text-energy-purple mb-1">📋 學習目標</h4>
+                      <h4 className="text-xs font-bold text-energy-purple mb-1">📋 {t('mission.learningObjectives')}</h4>
                       <ul className="space-y-0.5">
                         {mission.objectives.map((obj, idx) => (
                           <li key={idx} className="text-xs text-star-white/70 flex items-start gap-1">
@@ -416,7 +255,7 @@ export default function AdvancedMissionsPage() {
 
                     {/* 任務獎勵 */}
                     <div>
-                      <h4 className="text-xs font-bold text-energy-purple mb-1">🎁 任務獎勵</h4>
+                      <h4 className="text-xs font-bold text-energy-purple mb-1">🎁 {t('mission.missionRewards')}</h4>
                       <div className="space-y-0.5">
                         {mission.rewards.map((reward, idx) => (
                           <div key={idx} className="text-xs text-star-white/80">
